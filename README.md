@@ -18,7 +18,7 @@ scripts/
 
    ```bash
    export PATH="$HOME/path/to/scripts:$PATH"
-````
+
 
 Replace `path/to/scripts` with the actual path of this folder.
 
