@@ -9,6 +9,7 @@ source "$BASE_DIR/_colors.zsh"
 
 # List all scripts you want to make executable
 SCRIPTS=(
+  "gfpl"
   "gpush"
   "ms"
 )

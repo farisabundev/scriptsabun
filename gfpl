@@ -1,0 +1,15 @@
+#!/bin/zsh
+source "$(dirname "$0")/_colors.zsh"
+
+color_echo $CYAN "🔄 Fetching latest changes..."
+if ! git fetch; then
+  color_echo $RED "❌ Failed to fetch updates."
+  exit 1
+fi
+
+color_echo $CYAN "⬇️ Pulling latest changes..."
+if git pull --rebase; then
+  color_echo $GREEN "✅ Repository successfully updated."
+else
+  color_echo $RED "⚠️ Pull failed. Please resolve manually."
+fi
