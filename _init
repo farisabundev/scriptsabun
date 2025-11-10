@@ -1,0 +1,26 @@
+#!/bin/zsh
+# === init your custom script env ===
+
+# Base directory (the folder where this script lives)
+BASE_DIR="$(dirname "$0")"
+
+# Import colors
+source "$BASE_DIR/_colors.zsh"
+
+# List all scripts you want to make executable
+SCRIPTS=(
+  "gpush"
+  "ms"
+)
+
+for script in "${SCRIPTS[@]}"; do
+  SCRIPT_PATH="$BASE_DIR/$script"
+  if [ -f "$SCRIPT_PATH" ]; then
+    chmod +x "$SCRIPT_PATH"
+    color_echo $GREEN "✅ Permission set for: $script"
+  else
+    color_echo $YELLOW "⚠️  Skipped: $script (not found)"
+  fi
+done
+
+color_echo $CYAN "🎉 Init complete! Scripts in $BASE_DIR are ready."

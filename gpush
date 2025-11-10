@@ -1,0 +1,48 @@
+#!/bin/zsh
+# === gpush (do i really need to explain u this?) ===
+
+source "$(dirname "$0")/_colors.zsh"
+
+# === FLAG CHECK ===
+NO_ADD=false
+if [[ "$1" == "-na" || "$1" == "--no-add" ]]; then
+  NO_ADD=true
+  shift  # remove the flag so $1 becomes the commit message
+fi
+
+# === COMMIT MESSAGE CHECK ===
+if [ -z "$1" ]; then
+  echo "${RED}❌ Please provide a commit message.${RESET}"
+  echo "Usage:"
+  echo "  gpush \"your message\""
+  echo "  gpush -na \"your message\"   # skip git add ."
+  exit 1
+fi
+
+# === ADD FILES ===
+if [ "$NO_ADD" = false ]; then
+  echo "${BLUE}🧩 Staging all changes...${RESET}"
+  git add .
+else
+  echo "${YELLOW}🚫 Skipping git add .${RESET}"
+fi
+
+# === PREVENT EMPTY COMMIT ===
+if git diff --cached --quiet; then
+  echo "${RED}❌ No staged changes to commit.${RESET}"
+  echo "${YELLOW}Hint:${RESET} Stage your files or remove the --no-add flag."
+  exit 1
+fi
+
+# === COMMIT AND PUSH ===
+echo "${BLUE}📝 Committing changes...${RESET}"
+if git commit -m "$1"; then
+  echo "${BLUE}🚀 Pushing to remote...${RESET}"
+  if git push; then
+    echo "${GREEN}✅ Successfully pushed to remote!${RESET}"
+  else
+    echo "${RED}❌ Push failed. Check your connection or branch.${RESET}"
+  fi
+else
+  echo "${RED}❌ Commit failed.${RESET}"
+fi
