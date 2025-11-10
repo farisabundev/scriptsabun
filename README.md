@@ -4,13 +4,13 @@ This directory contains a set of utility scripts for common Git operations and s
 
 ## Structure
 
+```
 scripts/
 ├── _colors.zsh   # Shared color definitions
 ├── _init         # Initializes permissions for all scripts
 ├── gpush         # Git commit and push helper
 ├── ms            # Safe merge script for merging feature branches
-
-````
+```
 
 ## Setup
 
