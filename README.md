@@ -96,6 +96,3 @@ Process:
 * The scripts assume Zsh as the default shell.
 * `_colors.zsh` must remain in the same directory, as other scripts source it.
 * `_init` can be extended to auto-detect scripts dynamically.
-
-```
-```
