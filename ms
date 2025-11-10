@@ -5,10 +5,11 @@ source "$(dirname "$0")/_colors.zsh"
 
 # === CONFIG ===
 TARGET_BRANCH=$1
+FORCE_FLAG=$2
 
 if [ -z "$TARGET_BRANCH" ]; then
   echo "${RED}❌ Please provide a target branch.${RESET}"
-  echo "Usage: ${YELLOW}ms <target-branch>${RESET}"
+  echo "Usage: ${YELLOW}ms <target-branch> [--force]${RESET}"
   exit 1
 fi
 
@@ -21,6 +22,18 @@ fi
 
 echo "${CYAN}📦 Current branch:${RESET} $CURRENT_BRANCH"
 echo "${CYAN}🎯 Target branch:${RESET} $TARGET_BRANCH"
+
+# === CONFIRMATION (unless --force is used) ===
+if [ "$FORCE_FLAG" != "--force" ]; then
+  echo -n "${YELLOW}Are you sure you want to merge '${CURRENT_BRANCH}' into '${TARGET_BRANCH}'? (y/N): ${RESET}"
+  read -r CONFIRM
+  if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+    echo "${RED}❌ Merge canceled by user.${RESET}"
+    exit 0
+  fi
+else
+  echo "${YELLOW}⚡ Force mode enabled. Skipping confirmation.${RESET}"
+fi
 
 # === STASH UNCOMMITTED CHANGES (if any) ===
 if ! git diff --quiet || ! git diff --cached --quiet; then
