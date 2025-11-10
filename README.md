@@ -3,14 +3,15 @@
 This directory contains a set of utility scripts for common Git operations and setup automation. The scripts are written in Zsh and designed for quick use from the terminal.
 
 ## Structure
-
-```
+````
 scripts/
 ├── _colors.zsh   # Shared color definitions
 ├── _init         # Initializes permissions for all scripts
+├── gfpl          # Git fetch and pull rebase
 ├── gpush         # Git commit and push helper
 ├── ms            # Safe merge script for merging feature branches
-```
+
+````
 
 ## Setup
 
@@ -18,7 +19,7 @@ scripts/
 
    ```bash
    export PATH="$HOME/path/to/scripts:$PATH"
-
+   ```
 
 Replace `path/to/scripts` with the actual path of this folder.
 
@@ -39,6 +40,22 @@ Defines reusable ANSI color codes and helper functions for consistent, readable 
 ### `_init`
 
 Sets execution permissions for scripts inside this directory. It automatically detects its own directory, so it can be run from anywhere.
+
+### `gfpl`
+
+Fetch and pull the latest changes from the current branch using `--rebase`.
+
+Usage:
+
+```bash
+gfpl
+```
+
+Process:
+
+1. Runs `git fetch` to retrieve the latest updates.
+2. Runs `git pull --rebase` to apply changes.
+3. Displays colorized output for success or failure.
 
 ### `gpush`
 
@@ -79,3 +96,6 @@ Process:
 * The scripts assume Zsh as the default shell.
 * `_colors.zsh` must remain in the same directory, as other scripts source it.
 * `_init` can be extended to auto-detect scripts dynamically.
+
+```
+```
