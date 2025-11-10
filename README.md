@@ -81,6 +81,10 @@ Usage:
 ms <target-branch> [--force]
 ```
 
+Options:
+
+* `--force`: Skip the confirmation prompt and merge immediately.
+
 Process:
 
 1. Detects the current branch.
