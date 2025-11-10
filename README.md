@@ -78,7 +78,7 @@ Merge the current branch into a target branch safely.
 Usage:
 
 ```bash
-ms <target-branch>
+ms <target-branch> [--force]
 ```
 
 Process:
