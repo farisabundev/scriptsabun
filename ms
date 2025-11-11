@@ -55,9 +55,11 @@ log "${CYAN}🎯 Target branch:${RESET} $TARGET_BRANCH"
 
 # === CONFIRMATION ===
 if [ "$FORCE_MODE" = false ] && [ "$SILENT_MODE" = false ]; then
-  echo -n "${YELLOW}Are you sure you want to merge '${CURRENT_BRANCH}' into '${TARGET_BRANCH}'? (y/N): ${RESET}"
+  # Default to yes on Enter (show Y/n). Only explicit 'n' or 'N' cancels.
+  echo -n "${YELLOW}Are you sure you want to merge '${CURRENT_BRANCH}' into '${TARGET_BRANCH}'? (Y/n): ${RESET}"
   read -r CONFIRM
-  if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+  # If user types 'n' or 'N' then cancel; empty input or 'y'/'Y' proceeds.
+  if [[ "$CONFIRM" =~ ^[Nn]$ ]]; then
     echo "${RED}❌ Merge canceled by user.${RESET}"
     exit 0
   fi
