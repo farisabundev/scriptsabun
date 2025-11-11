@@ -17,7 +17,7 @@ scripts/
 
 1. Ensure this directory is in your PATH. Add the following line to your `.zshrc`:
 
-   ```bash
+   ```
    export PATH="$HOME/path/to/scripts:$PATH"
    ```
 
@@ -25,7 +25,7 @@ Replace `path/to/scripts` with the actual path of this folder.
 
 2. Run the initialization script to set proper permissions:
 
-   ```bash
+   ```
    ./_init
    ```
 
@@ -47,7 +47,7 @@ Fetch and pull the latest changes from the current branch using `--rebase`.
 
 Usage:
 
-```bash
+```
 gfpl
 ```
 
@@ -63,7 +63,7 @@ A simplified Git commit and push helper.
 
 Usage:
 
-```bash
+```
 gpush "commit message"
 ```
 
@@ -77,7 +77,7 @@ Merge the current branch into a target branch safely.
 
 Usage:
 
-```bash
+```
 ms <target-branch> [--force | -F] [--no-edit | -ne] [--silent | -s]
 ```
 
