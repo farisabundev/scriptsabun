@@ -78,15 +78,17 @@ Merge the current branch into a target branch safely.
 Usage:
 
 ```bash
-ms <target-branch> [--force]
+ms <target-branch> [--force | -F] [--no-edit | -ne] [--silent | -s]
 ```
 
 Options:
-
-* `--force`: Skip the confirmation prompt and merge immediately.
+| Flag               | Description                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `--force`, `-F`    | Skip the confirmation prompt and merge immediately.                                       |
+| `--no-edit`, `-ne` | Skip the merge message editor (`--no-edit` in Git). Useful for automated or quick merges. |
+| `--silent`, `-s` | Suppresses all non-essential output (logs, confirmations, and progress messages). Only errors or critical failures will be displayed. |
 
 Process:
-
 1. Detects the current branch.
 2. Stashes any uncommitted changes.
 3. Checks out the target branch.
