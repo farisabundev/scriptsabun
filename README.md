@@ -97,6 +97,10 @@ Process:
 6. If successful, pushes to origin and returns to the previous branch.
 7. If there is a conflict, aborts the merge and restores the previous branch.
 
+Default confirmation behavior:
+
+Pressing Enter at the `ms` confirmation prompt now defaults to "yes" (the prompt displays `Y/n`). Only an explicit `n` or `N` will cancel the merge. Use `--force` to skip confirmation entirely.
+
 ## Notes
 
 * The scripts assume Zsh as the default shell.
