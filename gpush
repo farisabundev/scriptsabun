@@ -5,17 +5,29 @@ source "$(dirname "$0")/_colors.zsh"
 
 # === FLAG CHECK ===
 NO_ADD=false
-if [[ "$1" == "-na" || "$1" == "--no-add" ]]; then
-  NO_ADD=true
-  shift  # remove the flag so $1 becomes the commit message
-fi
+SET_UPSTREAM=false
+
+# Parse flags
+for arg in "$@"; do
+  case $arg in
+    -na|--no-add)
+      NO_ADD=true
+      shift
+      ;;
+    -su|--set-upstream)
+      SET_UPSTREAM=true
+      shift
+      ;;
+  esac
+done
 
 # === COMMIT MESSAGE CHECK ===
 if [ -z "$1" ]; then
   echo "${RED}❌ Please provide a commit message.${RESET}"
   echo "Usage:"
   echo "  gpush \"your message\""
-  echo "  gpush -na \"your message\"   # skip git add ."
+  echo "  gpush -na \"your message\"      # skip git add ."
+  echo "  gpush -su \"your message\"      # set upstream if missing"
   exit 1
 fi
 
@@ -38,11 +50,23 @@ fi
 echo "${BLUE}📝 Committing changes...${RESET}"
 if git commit -m "$1"; then
   echo "${BLUE}🚀 Pushing to remote...${RESET}"
-  if git push; then
-    echo "${GREEN}✅ Successfully pushed to remote!${RESET}"
+
+  if [ "$SET_UPSTREAM" = true ]; then
+    CURRENT_BRANCH=$(git branch --show-current)
+    echo "${YELLOW}🌐 Setting upstream for branch '${CURRENT_BRANCH}'...${RESET}"
+    if git push --set-upstream origin "$CURRENT_BRANCH"; then
+      echo "${GREEN}✅ Upstream set and pushed successfully!${RESET}"
+    else
+      echo "${RED}❌ Failed to set upstream or push.${RESET}"
+    fi
   else
-    echo "${RED}❌ Push failed. Check your connection or branch.${RESET}"
+    if git push; then
+      echo "${GREEN}✅ Successfully pushed to remote!${RESET}"
+    else
+      echo "${RED}❌ Push failed. Try using -su if this branch has no upstream.${RESET}"
+    fi
   fi
+
 else
   echo "${RED}❌ Commit failed.${RESET}"
 fi

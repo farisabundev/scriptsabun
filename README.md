@@ -64,12 +64,14 @@ A simplified Git commit and push helper.
 Usage:
 
 ```
-gpush "commit message"
+gpush "commit message" [--no-add | -na] [--set-upstream | -se]
 ```
 
 Options:
-
-* `-na` or `--no-add`: Skip automatic `git add .`. The script will prevent committing if there are no staged changes.
+| Flag               | Description                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `--no-add`, `-na`    | Skip automatic `git add .`. The script will prevent committing if there are no staged changes.                                       |
+| `--set-upstream`, `-se` | Lets you automatically set the remote tracking branch when pushing for the first time (super handy for new branches). |
 
 ### `ms`
 
